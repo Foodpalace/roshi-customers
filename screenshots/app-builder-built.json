@@ -1,0 +1,41 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Haat — food delivery in Sribhumi",
+      "hasCanvas": false,
+      "bodyTextLen": 4122,
+      "bodyTextHash": "eeae7418b96f8da605f6ee1e2bbac5bafc91b4f7514d3c5292e1a0879ee4a069",
+      "bodyTextPrefix": "Skip to menu Haat Sign in DELIVERING TO Central Bazaar Change Se",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Haat — food delivery in Sribhumi",
+      "hasCanvas": false,
+      "bodyTextLen": 303,
+      "bodyTextHash": "579dda52e133e8d635b7fc97e45c3ffc85aa4e429af32b4ae561b1af5643327d",
+      "bodyTextPrefix": "Skip to menu Haat DELIVERING TO Central Bazaar Change Search bir",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": true,
+  "baselineReasons": [
+    "desktop: body text changed (311 -> 4122 chars, hash mismatch)",
+    "mobile: body text collapsed (4122 -> 303 chars)"
+  ]
+}

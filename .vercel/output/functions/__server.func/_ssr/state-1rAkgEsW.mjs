@@ -1,0 +1,59 @@
+//#region node_modules/.nitro/vite/services/ssr/assets/state-1rAkgEsW.js
+var CUSTOMER_TRACK_STEPS = [
+	"PLACED",
+	"ACCEPTED",
+	"PREPARING",
+	"READY",
+	"RIDER_ASSIGNED",
+	"PICKED_UP",
+	"ON_THE_WAY",
+	"DELIVERED"
+];
+var TRANSITIONS = {
+	CART: ["CHECKOUT", "CANCELLED"],
+	CHECKOUT: [
+		"PLACED",
+		"FAILED_PAYMENT",
+		"CANCELLED"
+	],
+	PLACED: [
+		"ACCEPTED",
+		"REJECTED",
+		"CANCELLED",
+		"FAILED_PAYMENT"
+	],
+	ACCEPTED: ["PREPARING", "CANCELLED"],
+	PREPARING: ["READY", "CANCELLED"],
+	READY: ["RIDER_ASSIGNED", "CANCELLED"],
+	RIDER_ASSIGNED: [
+		"PICKED_UP",
+		"CANCELLED",
+		"DELIVERY_FAILED"
+	],
+	PICKED_UP: ["ON_THE_WAY", "DELIVERY_FAILED"],
+	ON_THE_WAY: ["DELIVERED", "DELIVERY_FAILED"],
+	DELIVERED: ["REFUNDED", "PARTIAL_REFUND"],
+	REJECTED: [],
+	CANCELLED: ["REFUNDED"],
+	REFUNDED: [],
+	PARTIAL_REFUND: [],
+	FAILED_PAYMENT: ["CHECKOUT", "CANCELLED"],
+	DELIVERY_FAILED: ["REFUNDED", "CANCELLED"]
+};
+function canTransition(from, to) {
+	return TRANSITIONS[from]?.includes(to) ?? false;
+}
+function customerMayCancel(status) {
+	return status === "PLACED" || status === "ACCEPTED";
+}
+var SIMULATED_ADVANCE = {
+	PLACED: "ACCEPTED",
+	ACCEPTED: "PREPARING",
+	PREPARING: "READY",
+	READY: "RIDER_ASSIGNED",
+	RIDER_ASSIGNED: "PICKED_UP",
+	PICKED_UP: "ON_THE_WAY",
+	ON_THE_WAY: "DELIVERED"
+};
+//#endregion
+export { customerMayCancel as i, SIMULATED_ADVANCE as n, canTransition as r, CUSTOMER_TRACK_STEPS as t };
