@@ -1,6 +1,13 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { canTransition, customerMayCancel, SIMULATED_ADVANCE } from "./state.ts";
+import {
+  canTransition,
+  customerMayCancel,
+  isTerminal,
+  SIMULATED_ADVANCE,
+  trackIndex,
+  CUSTOMER_TRACK_STEPS,
+} from "./state.ts";
 
 describe("order state machine", () => {
   it("allows the happy path", () => {
@@ -32,5 +39,17 @@ describe("order state machine", () => {
   it("simulated advance follows the kitchen path", () => {
     assert.equal(SIMULATED_ADVANCE.PLACED, "ACCEPTED");
     assert.equal(SIMULATED_ADVANCE.ON_THE_WAY, "DELIVERED");
+  });
+
+  it("marks terminal statuses", () => {
+    assert.equal(isTerminal("DELIVERED"), true);
+    assert.equal(isTerminal("CANCELLED"), true);
+    assert.equal(isTerminal("PREPARING"), false);
+  });
+
+  it("track index follows customer ladder", () => {
+    assert.equal(trackIndex("PLACED"), 0);
+    assert.equal(trackIndex("DELIVERED"), CUSTOMER_TRACK_STEPS.length - 1);
+    assert.equal(trackIndex("CANCELLED"), -1);
   });
 });

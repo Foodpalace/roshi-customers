@@ -19,6 +19,7 @@ export const ORDER_STATUSES = [
 
 export type OrderStatus = (typeof ORDER_STATUSES)[number];
 
+/** Customer-visible tracking ladder after a successful place. */
 export const CUSTOMER_TRACK_STEPS: OrderStatus[] = [
   "PLACED",
   "ACCEPTED",
@@ -29,6 +30,16 @@ export const CUSTOMER_TRACK_STEPS: OrderStatus[] = [
   "ON_THE_WAY",
   "DELIVERED",
 ];
+
+export const TERMINAL_STATUSES: ReadonlySet<OrderStatus> = new Set([
+  "DELIVERED",
+  "REJECTED",
+  "CANCELLED",
+  "REFUNDED",
+  "PARTIAL_REFUND",
+  "FAILED_PAYMENT",
+  "DELIVERY_FAILED",
+]);
 
 const TRANSITIONS: Record<OrderStatus, OrderStatus[]> = {
   CART: ["CHECKOUT", "CANCELLED"],
@@ -63,6 +74,16 @@ export function customerMayCancel(status: OrderStatus): boolean {
   return status === "PLACED" || status === "ACCEPTED";
 }
 
+export function isTerminal(status: OrderStatus): boolean {
+  return TERMINAL_STATUSES.has(status);
+}
+
+export function trackIndex(status: OrderStatus): number {
+  const i = CUSTOMER_TRACK_STEPS.indexOf(status);
+  return i;
+}
+
+/** Dev-only: advance sample kitchens without partner/rider apps. */
 export const SIMULATED_ADVANCE: Partial<Record<OrderStatus, OrderStatus>> = {
   PLACED: "ACCEPTED",
   ACCEPTED: "PREPARING",
